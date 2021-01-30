@@ -118,6 +118,9 @@
         <section id="confirmation-area" class="text-center">
             <h1>Congratulation</h1>
             <h3>Your Booking Flight is Confirmed</h3>
+            <h5>Your Purchased Tickets are:</h5>
+            <p>First Class Ticket No: <span id="firstClassTicket"></span></p>
+            <p>Economy Class Ticket No: <span id="economyTicket"></span></p>
         </section>
 
         <!--Thank You-->
@@ -154,6 +157,8 @@
             document.getElementById('book-now').addEventListener('click', function () {
                 document.getElementById('confirmation-area').style.display = 'block';
                 document.getElementById('booking-area').style.display = 'none';
+                document.getElementById('firstClassTicket').innerText = document.getElementById('first-class-seat').value;
+                document.getElementById('economyTicket').innerText = document.getElementById('economy-seat').value;
             })
         </script>
 </body>
