@@ -157,8 +157,12 @@
             document.getElementById('book-now').addEventListener('click', function () {
                 document.getElementById('confirmation-area').style.display = 'block';
                 document.getElementById('booking-area').style.display = 'none';
+                if (document.getElementById('first-class-seat').value == 0 && document.getElementById('economy-seat').value == 0){
+                    document.write('<h1><center>Sorry, Your Booking Flight is Not Confirmed</center></h1><h1><center>Please Select Minimun One Ticket</center></h1>');
+                }else{
                 document.getElementById('firstClassTicket').innerText = document.getElementById('first-class-seat').value;
                 document.getElementById('economyTicket').innerText = document.getElementById('economy-seat').value;
+            }
             })
         </script>
 </body>
