@@ -10,8 +10,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Roboto:wght@400;500;700&display=swap"
         rel="stylesheet">
     <!-- Stylesheet -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" rel="stylesheet">
 </head>
+
+
 
 <body>
     <!--Header and Menu Section-->
@@ -27,7 +31,7 @@
     </header>
 
     <!--Booking Section-->
-    <main class="main-content container">
+    <section id="booking-area" class="main-content container">
         <div class="booking-form">
             <h3>Booking Flights</h3>
             <div class="input-group">
@@ -41,7 +45,7 @@
             <div class="inputs">
                 <div class="input-group">
                     <label" for="">Departure</label>
-                    <input class="inp-style" type="date" name="">
+                        <input class="inp-style" type="date" name="">
                 </div>
                 <div class="input-group">
                     <label for="">Return</label>
@@ -51,21 +55,24 @@
             <div class="input-group f-class">
                 <div>
                     <label for="">First Class ($150)</label>
-                    <input class="inp-style inp-width" type="number" name="">
+                    <input id="first-class-seat" class="inp-style inp-width" type="number" name="" value="0">
+
                 </div>
-                <div class="plus-minus-btn">
-                    <p>+ -</p>
-                </div>
+                <button onclick="seatBooking('first-class-seat', true)" class="btn btn-primary"><i
+                        class="fas fa-plus"></i></button>
+                <button onclick="seatBooking('first-class-seat', false)" class="btn btn-primary"><i
+                        class="fas fa-minus"></i></button>
             </div>
-            
+
             <div class="input-group f-class">
                 <div>
                     <label for="">Economy ($100)</label>
-                    <input class="inp-style inp-width" type="number" name="">
+                    <input id="economy-seat" class="inp-style inp-width" type="number" name="" value="0">
                 </div>
-                <div class="plus-minus-btn">
-                    <p> <span>+</span> <span>-</span> </p>
-                </div>
+                <button onclick="seatBooking('economy-seat', true)" class="btn btn-primary"><i
+                        class="fas fa-plus"></i></button>
+                <button onclick="seatBooking('economy-seat', false)" class="btn btn-primary"><i
+                        class="fas fa-minus"></i></button>
             </div>
             <div class="calculations">
                 <div class="amount">
@@ -73,7 +80,7 @@
                         <p>Subtotal</p>
                     </div>
                     <div class="right">
-                        <p>$500</p>
+                        <p>$<span id="sub-total">00</span></p>
                     </div>
                 </div>
 
@@ -82,7 +89,7 @@
                         <p>Charge 10% VAT</p>
                     </div>
                     <div class="right">
-                        <p>$50</p>
+                        <p>$<span id="vat"> 00</span></p>
                     </div>
                 </div>
                 <hr>
@@ -91,20 +98,64 @@
                         <h4>Total</h4>
                     </div>
                     <div class="right">
-                        <p>$550</p>
+                        <p>$ <span id="total">00</span></p>
                     </div>
                 </div>
             </div>
-            <button class="btn-style">Book Now</button>
+            <button id="book-now" class="btn-style">Book Now</button>
         </div>
 
         <div class="booking-content">
             <h1>discover <br> around the world</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicingelit. Provident voluptatibus quam fuga laborumalias veniam libero autem quasi maxime ullam vero nama imi dolor, architecto ab facilis eaque deserunt nobise voluptatibus quam</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicingelit. Provident voluptatibus quam fuga laborumalias
+                veniam libero autem quasi maxime ullam vero nama imi dolor, architecto ab facilis eaque deserunt nobise
+                voluptatibus quam</p>
         </div>
-    </section>
+        </section>
 
-    <!--Thank You-->
+                <!--Confirmation Section-->
+
+        <section id="confirmation-area" class="text-center">
+            <h1>Congratulation</h1>
+            <h3>Your Booking Flight is Confirmed</h3>
+        </section>
+
+        <!--Thank You-->
+
+        <script>
+
+            function seatBooking(ticket, condition) {
+                const ticketNumber = parseInt(document.getElementById(ticket).value);
+                let bookedSeat = ticketNumber;
+
+                if (condition == true) {
+                    bookedSeat = ticketNumber + 1;
+                }
+                if (condition == false && ticketNumber > 0) {
+                    bookedSeat = ticketNumber - 1;
+                }
+                document.getElementById(ticket).value = bookedSeat;
+
+                let firstClassSeat = parseInt(document.getElementById('first-class-seat').value);
+                let economyClassSeat = parseInt(document.getElementById('economy-seat').value);
+
+                const firstClassRate = 150;
+                const economyClassRate = 100;
+
+                let subTotal = firstClassSeat * firstClassRate + economyClassSeat * economyClassRate;
+                document.getElementById('sub-total').innerText = subTotal;
+                let vatAmount = subTotal * 0.1;
+                document.getElementById('vat').innerText = vatAmount;
+                let totalAmount = subTotal + vatAmount;
+                document.getElementById('total').innerText = totalAmount;
+
+            }
+
+            document.getElementById('book-now').addEventListener('click', function () {
+                document.getElementById('confirmation-area').style.display = 'block';
+                document.getElementById('booking-area').style.display = 'none';
+            })
+        </script>
 </body>
 
 </html>
